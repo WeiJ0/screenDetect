@@ -117,7 +117,7 @@
         document.querySelector("#screenSize").innerHTML = size;
 
         const systemSize =
-          width * devicePixelRatio + " x " + height * devicePixelRatio;
+          (width * devicePixelRatio).toFixed(2) + " x " + (height * devicePixelRatio).toFixed(2);
         document.querySelector("#systemSize").innerHTML = systemSize;
 
         const match = window.matchMedia("(orientation: portrait)");
