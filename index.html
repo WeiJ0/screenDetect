@@ -106,34 +106,42 @@
     </div>
 
     <script>
-      const setInfo = () => {
-        const devicePixelRatio = window.devicePixelRatio;
-        const ratio = document.querySelector("#ratio");
-        ratio.innerHTML = devicePixelRatio;
+     const setInfo = () => {
+    const roundValue = (value) => {
+      return value % 1 === 0 ? value : value.toFixed(2);
+    };
+  
+    const devicePixelRatio = window.devicePixelRatio;
+    const ratio = document.querySelector("#ratio");
+    ratio.innerHTML = roundValue(devicePixelRatio);
+  
+    const width = window.screen.width;
+    const height = window.screen.height;
+    const size = width + " x " + height;
+    document.querySelector("#screenSize").innerHTML = size;
+  
+    const systemWidth = width * devicePixelRatio;
+    const systemHeight = height * devicePixelRatio;
+    const systemSize =
+      roundValue(systemWidth) + " x " + roundValue(systemHeight);
+    document.querySelector("#systemSize").innerHTML = systemSize;
+  
+    const match = window.matchMedia("(orientation: portrait)");
+    document.querySelector("#orientation").innerHTML = match.matches
+      ? "直"
+      : "橫";
+  
+    const userAgent = navigator.userAgent;
+    document.querySelector("#userAgent").innerHTML = userAgent;
+  };
+  
+  // window resize event
+  window.addEventListener("resize", () => {
+    setInfo();
+  });
+  
+  setInfo();
 
-        const width = window.screen.width;
-        const height = window.screen.height;
-        const size = width + " x " + height;
-        document.querySelector("#screenSize").innerHTML = size;
-
-        const systemSize =
-          (width * devicePixelRatio).toFixed(2) + " x " + (height * devicePixelRatio).toFixed(2);
-        document.querySelector("#systemSize").innerHTML = systemSize;
-
-        const match = window.matchMedia("(orientation: portrait)");
-        document.querySelector("#orientation").innerHTML = match.matches
-          ? "直"
-          : "橫";
-
-        const userAgent = navigator.userAgent;
-        document.querySelector("#userAgent").innerHTML = userAgent;
-      };
-      // window resize event
-      window.addEventListener("resize", () => {
-        setInfo();
-      });
-
-      setInfo();
     </script>
   </body>
 </html>
